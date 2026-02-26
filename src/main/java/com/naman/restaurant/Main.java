@@ -11,8 +11,8 @@ public class Main {
 
         MealFactory factory = new ConcreteMealFactory();
 
-        Meal pizza = factory.createMeal("pizza");
-        Meal burger = factory.createMeal("burger");
+        Meal pizza = factory.createMeal("Pizza", 12.5);
+        Meal burger = factory.createMeal("Burger", 9.0);
 
         Order order = new Order();
         order.addMeal(pizza);

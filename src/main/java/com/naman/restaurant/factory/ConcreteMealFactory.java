@@ -3,29 +3,25 @@ package com.naman.restaurant.factory;
 import com.naman.restaurant.model.BaseMeal;
 import com.naman.restaurant.model.Meal;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ConcreteMealFactory implements MealFactory {
 
-    private Map<String, Supplier<Meal>> mealRegistry = new HashMap<>();
+    private Set<String> supportedMeals = new HashSet<>();
 
     public ConcreteMealFactory() {
-
-        mealRegistry.put("pizza", () -> new BaseMeal("Pizza", 10.0));
-        mealRegistry.put("burger", () -> new BaseMeal("Burger", 8.0));
+        supportedMeals.add("pizza");
+        supportedMeals.add("burger");
     }
 
     @Override
-    public Meal createMeal(String type) {
+    public Meal createMeal(String type, double price) {
 
-        Supplier<Meal> mealSupplier = mealRegistry.get(type.toLowerCase());
-
-        if (mealSupplier != null) {
-            return mealSupplier.get();
+        if (!supportedMeals.contains(type.toLowerCase())) {
+            throw new IllegalArgumentException("Unsupported meal type: " + type);
         }
 
-        throw new IllegalArgumentException("Unknown meal type: " + type);
+        return new BaseMeal(type, price);
     }
 }
