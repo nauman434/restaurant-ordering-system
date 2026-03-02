@@ -4,6 +4,7 @@ import com.naman.restaurant.factory.ConcreteMealFactory;
 import com.naman.restaurant.factory.MealFactory;
 import com.naman.restaurant.model.Meal;
 import com.naman.restaurant.model.Order;
+import com.naman.restaurant.payment.*;
 
 public class Main {
 
@@ -19,5 +20,10 @@ public class Main {
         order.addMeal(burger);
 
         order.printOrderSummary();
+
+        order.setPaymentStrategy(new CreditCardPayment("1234567812345678"));
+        order.checkout();
+
+
     }
 }
